@@ -853,6 +853,7 @@ export default {
       const transport = new WebStandardStreamableHTTPServerTransport({
         sessionIdGenerator: undefined,
         enableJsonResponse: true,
+        maxRequestBodySize: 1024 * 1024, // 1 MiB, including the JSON-RPC envelope
       });
       await server.connect(transport);
       return transport.handleRequest(request);

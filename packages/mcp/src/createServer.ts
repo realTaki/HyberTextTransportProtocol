@@ -62,7 +62,10 @@ function dbClient(rpcUrl: string, env: Env, write = false): HyberDBClient {
 }
 
 export function createServer(rpcUrl: string, env?: Env): McpServer {
-  const server = new McpServer({ name: 'hybertext', version: '0.1.0' });
+  const server = new McpServer(
+    { name: 'hybertext', version: '0.1.0' },
+    { maxToolInputElements: 10_000 },
+  );
 
   // ---------------------------------------------------------------------------
   // fetch_hybertext_site — read a site stored on-chain

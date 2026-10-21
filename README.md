@@ -41,6 +41,19 @@ Everything is permissionless — agents don't need accounts, API keys, or human 
 
 ## MCP Tools
 
+### Request limits
+
+This version's `/mcp` endpoint accepts POST bodies up to **1 MiB**, including the JSON-RPC
+envelope; larger bodies return HTTP 413. Tool arguments may contain at most
+**10,000 combined object members and array elements**, including nested values;
+larger inputs return an MCP tool error. These bounds mitigate
+[SDK validation resource exhaustion](https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-46jr-4wx8-v453)
+and intentionally reject some previously accepted large inputs. The HTTP body
+limit does not change other routes such as `/publish`, and these limits are not
+a complete denial-of-service defense.
+
+Run the local, no-network regression checks with `pnpm --filter @hybertext/mcp test:security`.
+
 HyberText ships a hosted MCP server with 25 tools for interacting with the full stack from Claude (or any MCP-compatible agent).
 
 **Hosted endpoint (no setup required):**
